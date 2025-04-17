@@ -1,0 +1,25 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 100
+UseTab: Never
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+BreakBeforeBraces: Attach
+
+AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: Consecutive
+AlignConsecutiveAssignments: AcrossEmptyLines
+AlignConsecutiveBitFields: Consecutive
+
+BinPackArguments: false
+BinPackParameters: false
+
+PenaltyBreakAssignment: 10000
+
+ExperimentalAutoDetectBinPacking: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
+
+CommentPragmas: '/\*(.+\n.+)+\*/'
