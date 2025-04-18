@@ -24,7 +24,13 @@
  * a sparse array mapping entity IDs to dense array indices, and a dense array
  * for fast iteration of active entities.
  */
-typedef struct sparse_set sparse_set_t;
+typedef struct sparse_set {
+    uint16_t count;                  /**< Number of active entities in the set */
+    size_t component_size;           /**< Size of individual component in bytes */
+    uint16_t sparse[SPARSE_SET_MAX]; /**< Maps entity index to position in dense array */
+    uint16_t dense[SPARSE_SET_MAX];  /**< Stores active entity indices in packed format */
+    uint8_t components[];            /**< Component data associated with entities */
+} sparse_set_t;
 
 /**
  * @brief Iterator for sparse set traversal

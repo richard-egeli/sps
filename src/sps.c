@@ -21,14 +21,6 @@
 #define sps_error(msg) (void)msg
 #endif
 
-typedef struct sparse_set {
-    uint16_t count;                  /**< Number of active entities in the set */
-    size_t component_size;           /**< Size of individual component in bytes */
-    uint16_t sparse[SPARSE_SET_MAX]; /**< Maps entity index to position in dense array */
-    uint16_t dense[SPARSE_SET_MAX];  /**< Stores active entity indices in packed format */
-    uint8_t components[];            /**< Component data associated with entities */
-} sparse_set_t;
-
 void *sps_iter_next(sparse_set_iter_t *iter, uint16_t *index) {
     if (index == NULL || iter == NULL) {
         sps_error("invalid function paramaters");
