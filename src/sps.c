@@ -150,12 +150,22 @@ void *sps_add_or_replace(sparse_set_t *set, uint16_t index, void *component) {
         return NULL;
     }
 
-    set->sparse[index]     = set->count;
-    set->dense[set->count] = index;
-    void *target           = (char *)set->components + (set->count * set->component_size);
-    memcpy(target, component, set->component_size);
-    set->count++;
-    return target;
+    // Check if the index already exists in the set
+    if (index < SPARSE_SET_MAX && set->sparse[index] < set->count &&
+        set->dense[set->sparse[index]] == index) {
+        // Element exists, replace it
+        void *target = (char *)set->components + (set->sparse[index] * set->component_size);
+        memcpy(target, component, set->component_size);
+        return target;
+    } else {
+        // Element doesn't exist, add it
+        set->sparse[index]     = set->count;
+        set->dense[set->count] = index;
+        void *target           = (char *)set->components + (set->count * set->component_size);
+        memcpy(target, component, set->component_size);
+        set->count++;
+        return target;
+    }
 }
 
 void *sps_add(sparse_set_t *set, uint16_t index, void *component) {
