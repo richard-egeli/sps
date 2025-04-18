@@ -226,7 +226,6 @@ void *sps_get(sparse_set_t *set, uint16_t index) {
     }
 
     if (set->sparse[index] == SPARSE_SET_MAX) {
-        sps_error("sparse index is not in use");
         return NULL;
     }
 
