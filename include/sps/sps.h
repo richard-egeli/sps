@@ -94,6 +94,20 @@ void sps_sort(sparse_set_t* set, sps_sort_func_t compare, void* context);
 bool sps_has(sparse_set_t* set, uint16_t index);
 
 /**
+ * @brief Add or replace an entity component in the sparse set
+ *
+ * @param set Sparse set to modify
+ * @param index Entity index to add or update
+ * @param component Pointer to component data to copy (must be non-NULL)
+ * @return Pointer to the component data in the set, or NULL on failure
+ *         (failure can occur if the set is full when trying to add a new component)
+ *
+ * If the entity already exists in the set, its component data will be replaced.
+ * If the entity doesn't exist, it will be added to the set.
+ */
+void* sps_add_or_replace(sparse_set_t* set, uint16_t index, void* component);
+
+/**
  * @brief Add an entity with its component to the set
  *
  * @param set Sparse set to modify

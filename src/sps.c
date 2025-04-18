@@ -152,6 +152,20 @@ bool sps_has(sparse_set_t *set, uint16_t index) {
     return set->sparse[index] != SPARSE_SET_MAX;
 }
 
+void *sps_add_or_replace(sparse_set_t *set, uint16_t index, void *component) {
+    if (set == NULL || component == NULL || index == SPARSE_SET_MAX) {
+        sps_error("invalid arguments");
+        return NULL;
+    }
+
+    set->sparse[index]     = set->count;
+    set->dense[set->count] = index;
+    void *target           = (char *)set->components + (set->count * set->component_size);
+    memcpy(target, component, set->component_size);
+    set->count++;
+    return target;
+}
+
 void *sps_add(sparse_set_t *set, uint16_t index, void *component) {
     if (set == NULL || component == NULL || index == SPARSE_SET_MAX) {
         sps_error("invalid arguments");
